@@ -1,0 +1,12 @@
+test_my_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: TestMyBundle:Default:index }
+test_my_city_area:
+    path:     /cityarea
+    defaults: { _controller: TestMyBundle:City:index }
+test_my_city:
+    path:     /city
+    defaults: { _controller: TestMyBundle:City:AjaxCity }
+test_my_state:
+    path:     /state
+    defaults: { _controller: TestMyBundle:City:AjaxState }

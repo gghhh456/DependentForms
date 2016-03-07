@@ -1,0 +1,56 @@
+{% extends 'TestMyBundle:Layout:base.html.twig' %}
+
+
+
+{% block body %}
+
+    <div id = "form">
+
+        {{ form_start(formOne) }}
+        {{ form_widget(formOne, {'attr': {'novalidate': 'novalidate'}})}}
+        {{ form_end(formOne) }}
+
+    </div>
+
+    <div id = "form">
+
+        {{ form_start(formTwo) }}
+        {{ form_widget(formTwo, {'attr': {'novalidate': 'novalidate'}})}}
+        {{ form_end(formTwo) }}
+
+    </div>
+
+    {% if cityArea is defined %}
+        <p> This is City Area {{ cityArea }}</p>
+        {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script>
+        function State(countryId) {
+            $('#cityarea_state').empty();
+            var url = "{{ path('test_my_state') }}";
+            var ajaxRequest;
+            ajaxRequest = $.ajax({
+                type: "POST",
+                url: url,
+                datatype: "json",
+                data: {
+                    countryId: countryId
+                },
+                success: function (data) {
+                    var stateData = "";
+                    for (var i = 0; i < data.count; i++) {
+                        stateData += "<option value='" + data.data[i].makeidk + "'>" + data.data[i].makename + "</option>";
+                    }
+                    $('#cityarea_state').append(stateData);
+                    $('#cityarea_state').change();
+                }
+            });
+        }
+        </script>
+
+{% endblock %}
