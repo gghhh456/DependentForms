@@ -11,6 +11,7 @@ namespace Test\MyBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Count;
 use Test\MyBundle\Entity\CityArea;
 use Test\MyBundle\Form\CityType;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,7 +22,6 @@ class CityController extends  Controller{
     public function IndexAction(Request $request){
 
         $em = $this->getDoctrine()->getManager();
-
         /**
          * Search for City Area Directly
          */
@@ -65,7 +65,7 @@ class CityController extends  Controller{
 
                 if ($formTwo->isSubmitted() && $formTwo->isValid()) {
                     $formTwoData = $request->request->get('cityarea');
-                    $country = $formTwoData['country'];
+                    $country = $formTwoData['cityArea'];
 
                     echo $country;
 
@@ -89,12 +89,14 @@ class CityController extends  Controller{
         if (! $request->isXmlHttpRequest()) {
             throw new NotFoundHttpException();
         }
-        $countryId = $request->request->get('id');
+        $countryId = $request->request->get('countryId');
         $em = $this->getDoctrine()->getManager();
 
         $data = $em->getRepository('TestMyBundle:State')->GetStateName($countryId);
+        $count = Count($data);
         return new JsonResponse(array(
-            'data'=>$data
+            'data'=>$data,
+            'count'=> $count
         ));
     }
 
@@ -103,12 +105,14 @@ class CityController extends  Controller{
         if (! $request->isXmlHttpRequest()) {
             throw new NotFoundHttpException();
         }
-        $StateId = $request->request->get('id');
+        $StateId = $request->request->get('state');
         $em = $this->getDoctrine()->getManager();
 
         $data = $em->getRepository('TestMyBundle:City')->GetCityName($StateId);
+        $count = Count($data);
         return new JsonResponse(array(
-            'data'=>$data
+            'data'=>$data,
+            'count'=> $count
         ));
     }
 
@@ -117,12 +121,14 @@ class CityController extends  Controller{
         if (! $request->isXmlHttpRequest()) {
             throw new NotFoundHttpException();
         }
-        $cityId = $request->request->get('id');
+        $cityId = $request->request->get('city');
         $em = $this->getDoctrine()->getManager();
 
         $data = $em->getRepository('TestMyBundle:CityArea')->GetCityAreaName($cityId);
+        $count = Count($data);
         return new JsonResponse(array(
-            'data'=>$data
+            'data'=>$data,
+            'count'=> $count
         ));
     }
 }

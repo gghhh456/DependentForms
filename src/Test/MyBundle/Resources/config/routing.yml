@@ -3,10 +3,13 @@ test_my_homepage:
     defaults: { _controller: TestMyBundle:Default:index }
 test_my_city_area:
     path:     /cityarea
-    defaults: { _controller: TestMyBundle:City:index }
+    defaults: { _controller: TestMyBundle:City:AjaxCityArea }
 test_my_city:
     path:     /city
     defaults: { _controller: TestMyBundle:City:AjaxCity }
 test_my_state:
     path:     /state
     defaults: { _controller: TestMyBundle:City:AjaxState }
+test_my_drop:
+    path:   /drop
+    defaults: { _controller: TestMyBundle:City:Index }

@@ -17,11 +17,11 @@ class CityRepository extends EntityRepository
     {
         $query = $this->getEntityManager()->createQuery('
         SELECT
-            State
+            State.id, State.state
         FROM
             TestMyBundle:State State
         WHERE
-            State.countryId =:countryid
+            State.countryId= :countryid
 
         ORDER BY
             State.state ASC')
@@ -34,11 +34,11 @@ class CityRepository extends EntityRepository
     {
         $query = $this->getEntityManager()->createQuery('
         SELECT
-            City
+            City.id , City.city
         FROM
             TestMyBundle:City City
         WHERE
-            City.stateId =: stateId
+            City.stateId= :stateId
         ORDER BY
             City.city ASC')
             ->setParameter('stateId', $stateId)
@@ -51,11 +51,11 @@ class CityRepository extends EntityRepository
 
         $query = $this->getEntityManager()->createQuery('
          SELECT
-            CityArea
+            CityArea.id,  CityArea.cityArea
         FROM
             TestMyBundle:CityArea CityArea
         WHERE
-            CityArea.cityId =: cityId
+            CityArea.city= :cityId
         ORDER BY
             CityArea.cityArea ASC')
             ->setParameter('cityId', $cityId)

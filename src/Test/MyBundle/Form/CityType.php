@@ -25,6 +25,7 @@ class CityType extends  AbstractType{
     public function buildForm(FormBuilderInterface $builder,array$options){
         $builder->add('country', 'entity', array(
             'class' => 'TestMyBundle:Country',
+            'empty_value'=>'-- Choose --',
             'choice_label' => 'country'
         ));
         $builder->add('Search','submit');
@@ -39,7 +40,7 @@ class CityType extends  AbstractType{
                                         ->where('State.countryId= :countryId')
                                         ->setParameter('countryId',$country_Id)
                                         ->orderBy('State.state','ASC')
-                                        ->getQuery()->getResult();
+                                        ;
                 }
             ));
         };
@@ -51,7 +52,7 @@ class CityType extends  AbstractType{
                                       ->where('City.stateId= :stateId')
                                         ->setParameter('stateId',$state_Id)
                                         ->orderBy('City.city','ASC')
-                                        ->getQuery()->getResult();
+                                        ;
                 }
             ));
         };
@@ -61,9 +62,9 @@ class CityType extends  AbstractType{
                 'query_builder'=>function(EntityRepository $repository) use ($city_Id){
                     return $repository->createQueryBuilder('CityArea')
                         ->where('CityArea.city= :cityId')
-                        ->setParameter('CityArea.cityId',$city_Id)
+                        ->setParameter('cityId',$city_Id)
                         ->orderBy('CityArea.cityArea','ASC')
-                        ->getQuery()->getResult();
+                        ;
                 }
             ));
             $form->add('Search','submit');

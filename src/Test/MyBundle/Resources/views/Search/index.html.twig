@@ -32,6 +32,7 @@
     <script>
         function State(countryId) {
             $('#cityarea_state').empty();
+
             var url = "{{ path('test_my_state') }}";
             var ajaxRequest;
             ajaxRequest = $.ajax({
@@ -44,13 +45,79 @@
                 success: function (data) {
                     var stateData = "";
                     for (var i = 0; i < data.count; i++) {
-                        stateData += "<option value='" + data.data[i].makeidk + "'>" + data.data[i].makename + "</option>";
+                        stateData += "<option value='" + data.data[i].id + "'>" + data.data[i].state + "</option>";
                     }
                     $('#cityarea_state').append(stateData);
                     $('#cityarea_state').change();
                 }
             });
         }
+        function City(stateId){
+
+            $('#cityarea_city').empty();
+
+            var url = "{{ path('test_my_city') }}";
+            var ajaxRequest;
+            ajaxRequest = $.ajax({
+                type: "POST",
+                url: url,
+                datatype: "json",
+                data: {
+                    state: stateId
+                },
+                success: function (data) {
+                    var CityData = "";
+                    for (var i = 0; i < data.count; i++) {
+                        CityData += "<option value='" + data.data[i].id + "'>" + data.data[i].city + "</option>";
+                    }
+                    $('#cityarea_city').append(CityData);
+                    $('#cityarea_city').change();
+                }
+            });
+        }
+
+        function CityArea(cityId){
+
+            $('#cityarea_cityArea').empty();
+            console.log('it is '+cityId);
+            var url = "{{ path('test_my_city_area') }}";
+            var ajaxRequest;
+            ajaxRequest = $.ajax({
+                type: "POST",
+                url: url,
+                datatype: "json",
+                data: {
+                    city: cityId
+                },
+                success: function (data) {
+                    console.log('The data is '+data);
+                    var CityAreaData = "";
+                    for (var i = 0; i < data.count; i++) {
+                        CityAreaData += "<option value='" + data.data[i].id + "'>" + data.data[i].cityArea + "</option>";
+                    }
+                    $('#cityarea_cityArea').append(CityAreaData);
+                    $('#cityarea_cityArea').change();
+                }
+            });
+        }
+
+        $(document).ready(function () {
+
+            $('#cityarea_country').change(function () {
+                var countryId = $('#cityarea_country').val();
+                State(countryId);
+            });
+            $('#cityarea_state').change(function () {
+                var stateId = $('#cityarea_state').val();
+                City(stateId);
+            });
+            $('#cityarea_city').change(function () {
+                var cityId = $('#cityarea_city').val();
+                CityArea(cityId);
+            });
+
+
+        });
         </script>
 
 {% endblock %}
