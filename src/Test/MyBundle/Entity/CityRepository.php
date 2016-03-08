@@ -13,21 +13,21 @@ use Doctrine\ORM\EntityRepository;
 class CityRepository extends EntityRepository
 {
 
-    public function GetStateName($countryId)
+    public function GetStateName($countryid)
     {
         $query = $this->getEntityManager()->createQuery('
         SELECT
             State
         FROM
-            TestMyBundle:State
+            TestMyBundle:State State
         WHERE
-            State.countryId =: countryId
+            State.countryId =:countryid
+
         ORDER BY
             State.state ASC')
-            ->setParameter('countryId', $countryId)
+            ->setParameter('countryid',$countryid)
             ->getResult();
         return $query;
-
     }
 
     public function GetCityName($stateId)
@@ -36,11 +36,11 @@ class CityRepository extends EntityRepository
         SELECT
             City
         FROM
-            TestMyBundle:City
+            TestMyBundle:City City
         WHERE
             City.stateId =: stateId
         ORDER BY
-            City.state ASC')
+            City.city ASC')
             ->setParameter('stateId', $stateId)
             ->getResult();
 
@@ -53,11 +53,11 @@ class CityRepository extends EntityRepository
          SELECT
             CityArea
         FROM
-            TestMyBundle:CityArea
+            TestMyBundle:CityArea CityArea
         WHERE
             CityArea.cityId =: cityId
         ORDER BY
-            CityArea.cityId ASC')
+            CityArea.cityArea ASC')
             ->setParameter('cityId', $cityId)
             ->getResult();
         return $query;

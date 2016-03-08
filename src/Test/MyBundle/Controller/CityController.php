@@ -45,20 +45,37 @@ class CityController extends  Controller{
 
         $formTwo = $this->get('form.factory')->create(new CityType($em));
 
-        if('POST' === $request->getMethod()){
+        if('POST' === $request->getMethod()) {
             //formOne
-            if($request->request->has('TextSearch')){
+            if ($request->request->has('TextSearch')) {
                 $formOne->handleRequest($request);
-                if($formOne->isSubmitted() && $formOne->isValid()){
+                if ($formOne->isSubmitted() && $formOne->isValid()) {
                     $formOneData = $request->request->get('TextSearch');
                     $cityArea = $formOneData['CityArea'];
 
-                    return $this->render('TestMyBundle:Search:index.html.twig',array(
-                        'formOne'=> $formOne->createView(),
-                        'formTwo'=> $formTwo->createView(),
-                        'cityArea'=>$cityArea
+                    return $this->render('TestMyBundle:Search:index.html.twig', array(
+                        'formOne' => $formOne->createView(),
+                        'formTwo' => $formTwo->createView(),
+                        'cityArea' => $cityArea
                     ));
                 }
+            }
+            if ($request->request->has('cityarea')) {
+                $formTwo->handleRequest($request);
+
+                if ($formTwo->isSubmitted() && $formTwo->isValid()) {
+                    $formTwoData = $request->request->get('cityarea');
+                    $country = $formTwoData['country'];
+
+                    echo $country;
+
+                    return $this->render('TestMyBundle:Search:index.html.twig', array(
+                        'formOne' => $formOne->createView(),
+                        'formTwo' => $formTwo->createView(),
+
+                    ));
+                }
+
             }
         }
         return $this->render('TestMyBundle:Search:index.html.twig',array(
