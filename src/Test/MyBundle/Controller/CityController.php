@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: zubairr
- * Date: 07-Mar-16
- * Time: 11:42 AM
- */
 
 namespace Test\MyBundle\Controller;
 

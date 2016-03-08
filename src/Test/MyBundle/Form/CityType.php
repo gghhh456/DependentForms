@@ -1,5 +1,8 @@
 <?php
+
+
 namespace Test\MyBundle\Form;
+
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,14 +14,11 @@ use Test\MyBundle\Entity\State;
 use Test\MyBundle\Entity\CityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-/**
- * Created by PhpStorm.
- * User: zubairr
- * Date: 07-Mar-16
- * Time: 1:30 PM
- */
+
 class CityType extends  AbstractType{
+
     protected $em;
+
     public function __construct($em){
         $this->em = $em;
     }
@@ -69,9 +69,11 @@ class CityType extends  AbstractType{
             ));
             $form->add('Search','submit');
         };
+
         //$CityFormbuilder, $CityAreaFormBuilder
         //$builder->add('Search', 'submit');
         // State
+
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use($stateFormbuilder) {
             $country = $event->getData();
             $country_id = null;
